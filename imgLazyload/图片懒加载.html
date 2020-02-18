@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <img class="lazyLoad" src="./image/3.jpg" data-src="./image/2.jpg" >
+    <img class="lazyLoad" src="./image/3.jpg" data-src="./image/2.jpg" >
+    <img class="lazyLoad" src="./image/3.jpg" data-src="./image/2.jpg" >
+    <img class="lazyLoad" src="./image/3.jpg" data-src="./image/2.jpg" >
+    <img class="lazyLoad" src="./image/3.jpg" data-src="./image/2.jpg" >
+  </div>
+  <script>
+    var images = document.querySelectorAll('.lazyLoad')
+
+    // IntersectionObserver实现
+    // var IntersectionObserver = new IntersectionObserver((ertries) => {
+    //   ertries.forEach(entry => {
+    //     let src
+    //     // 当元素进入可视区内
+    //     if (entry.isIntersecting) {
+    //       src = entry.target.getAttribute('data-src')
+    //       if ('img' === entry.target.tagName.toLowerCase()) {
+    //         if (src) {
+    //           entry.target.src = src
+    //         }
+    //       }
+    //     }
+    //   })
+    // })
+    // Array.from(images).forEach(image => {
+    //   IntersectionObserver.observe(image)
+    // })
+
+
+    // getBoundingClientRect实现
+    function isInViewport (el) {
+      const { top, bottom } = el.getBoundingClientRect()
+      // 为true则代表元素顶部小于窗口高度
+      const below = top < window.innerHeight ? true : false
+      // 为true代表元素的底部在可视区内
+      const above = bottom > 0 ? true : false
+      return below && above ? true : false
+    }
+    function lazyLoad () {
+      for (let i = 0; i < images.length; i++) {
+        let target = images[i]
+        if (isInViewport(target)) {
+          let src = target.getAttribute('data-src')
+          if ('img' === target.tagName.toLowerCase()) {
+            if (src) {
+              target.src = src
+            }
+          }
+        }
+      }
+    }
+    // 初始化先执行一次
+    lazyLoad()
+    document.addEventListener('scroll', lazyLoad)
+    document.addEventListener('resize', lazyLoad)
+
+  </script>
+</body>
+</html>
