@@ -3,6 +3,7 @@
 ## JS基础系列
 
 - [Js基础知识梳理](https://juejin.im/post/5e64ce466fb9a07cc845b6c8)
+- [原来 Es6 中的 Symbol 这么重要](https://juejin.im/post/5eafbbc86fb9a043266caffa)
 
 ## 浏览器
 
